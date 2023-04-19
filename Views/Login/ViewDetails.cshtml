@@ -1,0 +1,44 @@
+﻿@model IEnumerable<StudentAppln4.Models.Login>
+@{
+    ViewBag.Title = "ViewDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>viewStudents</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Form")
+</p>
+
+
+
+<table id="viewStudents" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+
+            <th>Email</th>
+            <th>Password</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                
+
+                <td>
+                    @item.Email
+                </td>
+                <td>
+                    @item.Password
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+</table>

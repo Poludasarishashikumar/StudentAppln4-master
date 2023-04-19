@@ -1,0 +1,141 @@
+﻿@*@model IEnumerable<StudentAppln4.Models.Student1>*@
+@model StudentAppln4.Models.Student1
+
+@{
+    ViewBag.Title = "View2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Student Details</h2>
+
+@using (Html.BeginForm("View2", "Student1"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" readonly>
+        
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.StudentId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentId1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StudentId1, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.StudentId1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group ">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group ">
+            @Html.LabelFor(model => model.RecStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RecStatus, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.RecStatus, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="kal2" type="button" value="Edit" onclick="BtnClick()" class="btn btn-primary " hidden />
+            </div>
+        </div>
+    </div>
+    @*<ul class="messages" onclick="BtnClick()"></ul>*@
+
+
+
+    <div>
+        @Html.ActionLink("Back to List", "ViewDetails")
+    </div>
+    <div>
+
+    </div>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Content/css")
+    <script>
+        function BtnClick() {
+            //$("#new1").validate({
+            //    submitHandler: function () {
+
+
+
+            //        var firstName = $("#FirstName").val();
+            //        var lastName = $("#LastName").val();
+            //        var email = $("#Email").val();
+            //        var obj = null;
+            //        obj = {
+
+            //            FirstName: firstName,
+            //            LastName: lastName,
+            //            Email: email,
+            //        }
+            //        SubmitForm(obj);
+            //    }
+            //});
+            var firstName = $("#FirstName").val();
+            var lastName = $("#LastName").val();
+            var email = $("#Email").val();
+            var obj = null;
+            obj = {
+
+                FirstName: firstName,
+                LastName: lastName,
+                Email: email,
+            }
+            SubmitForm(obj);
+        }
+        function SubmitForm(obj) {
+            var studentId = $("#StudentId").val();
+            $.ajax({
+                url: "/api/GetStudents/" + studentId,
+                method: "Get",
+                data: obj,
+                success: function (data) {
+
+                    window.location.href = "https://localhost:44325/Student1/Edit/" + studentId;
+                    //data = JSON.parse(data);
+                    //console.log(data);
+                }
+                ,
+                error: function (error) {
+                   /* $('#zero').append("Email already exists!");*/
+                    /*alert("email already exists");*/
+                }
+                //error: function (err) {
+                //    console.error(err);
+                //}
+            })
+
+        }
+
+    </script>
+}

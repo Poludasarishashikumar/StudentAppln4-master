@@ -1,0 +1,219 @@
+﻿@model IEnumerable<StudentAppln4.Models.Student1>
+@{
+    ViewBag.Title = "ViewDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>Students Details</h2>
+
+<button >
+    @Html.ActionLink("ADD STUDENT", "Form", "null", new { @class = " glyphicon glyphicon-plus-sign" })
+</button>
+<br />
+<br/>
+
+
+
+<table id="ViewDetails" class="table table-bordered table-hover table-striped dt-responsive nowrap">
+    <thead>
+        <tr>
+            @*<th>Id</th>*@
+            <th>StudentId</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Action
+            </th>
+            
+
+
+        </tr>
+    </thead>
+    <!--<tbody>
+        @*foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @item.StudentId1
+                </td>
+                <td>
+                    @item.FirstName
+                </td>
+                <td>
+                    @item.LastName
+                </td>
+
+                <td>
+                    @item.Email
+                </td>
+                <td>
+                    <button>
+                        @Html.ActionLink("Edit ", "Edit", new { id = item.StudentId }, new { @class = "glyphicon glyphicon-edit" })
+
+                    </button>
+                    <button>
+                        @Html.ActionLink("View ", "ViewAll",new { id = item.StudentId })
+
+                    </button>-->
+                    @*<button>*@
+                        @*@Html.ActionLink("Delete ", "Delete", new { id = item.StudentId }, new { @class = " glyphicon glyphicon-trash btn-link js-delete" }  )*@
+                        <!--<button data-student-id="@*item.StudentId" class=" btn-link glyphicon glyphicon-trash js-delete">Delete</button>-->
+                    
+                    @*</button>*@
+                    
+
+
+                <!--</td>
+
+
+
+
+            </tr>
+        }
+    </tbody>-->
+</table>
+@section scripts
+{
+    @Scripts.Render("~/bundles/lib")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/Content/css")
+<script>
+    $(document).ready(function () {
+        $(".table").DataTable(
+            {
+                ajax: {
+                    url: "/api/GetStudents",
+                    dataSrc: ""
+                },
+                columns:
+                    [
+                        {
+                            data: "studentId1"
+                        },
+                        {
+                            data: "firstName"
+                        },
+                        {
+                            data: "lastName"
+                        },
+                        {
+                            data: "email"
+                        },
+                        {
+                            data: "studentId",
+                            render: function (data)
+                            {
+                                return "<button class='btn-link js-delete glyphicon glyphicon-trash' data-student-id=" + data + ">Delete</button>                    &nbsp; &nbsp; &nbsp;                           <a class='glyphicon glyphicon-edit' href='/Student1/Edit?id=" + data + "&flag=0'>Edit</a>                      &nbsp;  &nbsp; &nbsp;                       <button class='btn '><a class='glyphicon' id='trns' href='/Student1/Edit?id=" + data + "&flag=1')'>View</a></button>";
+                            }
+                        },
+                        
+
+
+
+
+
+
+
+                        //{
+                        //    data: "studentId",
+                            
+                        //    render: function (data)
+                        //    {
+                               
+                        //        //return "<button class='btn-link js-delete glyphicon glyphicon-trash' data-student-id=" + data + ">Edit</button>";
+                        //        return "<a class='glyphicon glyphicon-edit' href='/Student1/Edit/" + data + "'>Edit</a><button class='btn '><a class='glyphicon' id='trns' href='/Student1/Form2/" + data + "')'>View</a></button>";
+                        //    }
+                        //},
+                        //{
+                        //    data: "studentId",
+                            
+                        //    render: function (data)
+                        //    {
+                        //        //return "<button class='btn-link js-delete glyphicon glyphicon-trash' data-student-id=" + data + ">Edit</button>";
+                        //       /* return "<a id='trns' href='/Student1/Form2' onclick='Click(" + data + "')'>View</a>";*/
+                        //        return "<button class='btn '><a class='glyphicon' id='trns' href='/Student1/Form2/"+ data + "')'>View</a></button>";
+                        //    }
+                        //},
+                    //    {
+                    //    data: "studentId",
+                    //    render: function (data, type, student) {
+                    //        return "<a href='/Student1/Edit" + student.StudentId1 + "'>" + student.FirstName + "'>" + student.LastName + "'>" + student.Email + "</a>";
+                    //    }
+                    //},
+
+
+
+
+
+
+
+
+
+
+
+
+                    ]
+            });
+
+
+        //    $("#ViewDetails").on("click", ".js-delete", function () {
+        //        confirm("Are you sure you want to delete?", function (result) {
+
+        //        });
+        //    });
+        //});
+        //$(document).ready(function () {
+        //    $("#ViewDetails").DataTable({
+        //        ajax: {
+        //            url: "/api/Student1",
+        //            dataSrc: ""
+        //        },
+        //        columns: [
+        //            {
+        //                data: "StudentId1",
+        //                render: function (data, type, student) {
+        //                    return "<a href='/Student1/edit/" + student.StudentId1 + "'>" + student.FirstName + "'>" + student.LastName + "'>" + student.Email + "</a>";
+        //                }
+        //            },
+
+        //            {
+        //                data: "StudentId",
+        //                render: function (data) {
+        //                    return "<button class='btn-link js-delete' data-customer-id=" + data + ">Delete</button>";
+        //                }
+        //            }
+        //        ]
+        //    });
+        function Click(id) {
+            
+            $("#trns").click(function () {
+                $.ajax({
+                    data:id,
+                    url: "/Student1/Form2", success: function (result) {
+                        $("#kal2").html(this.data).text;
+                    }
+                });
+            });
+        }
+        $(".table").on("click", ".js-delete", function () {
+            var button = $(this);
+            bootbox.confirm("Are you sure you want to delete this customer?", function (result) {
+                if (result) {
+                    $.ajax({
+                        url: "/api/DeleteStudents/" + button.attr("data-student-id"),
+                        method: "DELETE",
+                        success: function () {
+                            button.parents("tr").remove();
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
+}

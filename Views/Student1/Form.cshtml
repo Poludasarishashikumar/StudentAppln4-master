@@ -1,0 +1,322 @@
+﻿@model StudentAppln4.Models.Student1
+
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Student Form</h2>
+
+
+@using (Html.BeginForm())
+{
+    @*@Html.AntiForgeryToken()*@
+
+    <div id="new" class="form-horizontal">
+        <h4>Enter the Details</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.StudentId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.StudentId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.StudentId1, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.StudentId1, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StudentId1, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+                <div id="all" class="text-danger field-validation-error"></div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                    <div id="error message1" class="text-danger field-validation-error">
+
+                    </div>
+                </div>
+            </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                <div id="error message2" class="text-danger field-validation-error">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                
+        <div id="error message" class="text-danger field-validation-error">
+
+        </div>
+            </div>
+        </div>
+        @*<div class="row">
+                <label class="col-sm-2"></label>
+                <div class="col-sm-10">
+                    <p id="Status">jhghj</p>
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <i class="bi bi-pencil-square"></i>&nbsp;
+                @*<input type="submit" id="Save" value="Create" onclick="BtnClick()" class="btn btn-primary" />*@
+                <button type="button" value="Submit" onclick="BtnClick()" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "ViewDetails")
+</div>
+<!---->
+@*Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/lib")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Content/css")
+    @*<script>*@
+@*//$(document).ready(function () {
+    //    $("#Save").click(function () {
+    //        var person = new Object();
+    //        person.FirstName = $('#FirstName').val();
+    //        person.surname = $('#LastName').val();
+    //        person.Email = $('#Email').val();
+    //        $.post('', person, function (data) {
+    //            console.log(data);
+    //        });
+    //    });
+    //});*@
+
+@*<script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#Save").click(function () {
+                var person = new Object();
+                person.StudentId = $('#StudentId').val();
+                person.StudentId1 = $('#StudentId1').val();
+                person.FirstName = $('#FirstName').val();
+                person.LastName = $('#LastName').val();
+                person.Email = $('#Email').val();
+                $.ajax({
+                    /*url: 'https://localhost:44325/api/PostStudents',*/
+                    url: "/api/PostStudents",
+                    method: 'POST',
+                    dataType: 'json',
+                    data: person,
+                    success: function (data, textStatus, xhr) {
+                        console.log(data);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log('Error in Operation');
+                    }
+                });
+            });
+        });*@
+<!--</script>
+
+}-->
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Content/css")
+    <script>
+
+        //function BtnClick() {
+        //    var firstName = $("#FirstName").val();
+        //    var lastName = $("#LastName").val();
+        //    var email = $("#Email").val();
+        //    var obj = {
+        //        FirstName: firstName,
+        //        LastName: lastName,
+        //        Email: email,
+        //    }
+        //    SubmitForm(obj);
+        //}
+        //function SubmitForm(obj) {
+
+        //    $.ajax({
+        //        url: "/api/PostStudents",
+        //        method: "POST",
+        //        data: obj,
+        //        success: function (data) {
+        //            alert(data);
+        //            //data = JSON.parse(data);
+        //            //console.log(data);
+        //        }
+        //        ,
+        //        error: function (error) {
+        //            alert("email already exists");
+        //        }
+        //        //error: function (err) {
+        //        //    console.error(err);
+        //        //}
+        //    })
+
+        //}
+       
+
+            $("#new").validate({
+                submitHandler: function () {
+
+
+                   
+                    var firstName = $("#FirstName").val();
+                    var lastName = $("#LastName").val();
+                    var email = $("#Email").val();
+                    var obj = null;
+                    var obj = {
+                        FirstName: firstName,
+                        LastName: lastName,
+                        Email: email,
+                    }
+                    SubmitForm(obj);
+                   
+                }
+            });
+        function BtnClick() {
+
+            var firstName = $("#FirstName").val();
+            var lastName = $("#LastName").val();
+            var email = $("#Email").val();
+            
+            var obj = {
+                FirstName: firstName,
+                LastName: lastName,
+                Email: email,
+            }
+            SubmitForm(obj);
+        }
+        function SubmitForm(obj) {
+
+            $.ajax({
+                url: "/api/PostStudents",
+                method: "POST",
+                data: obj,
+                success: function (data) {
+                   alert(data);
+                    window.location.href = "https://localhost:44325/Student1/ViewDetails";
+                                        //data = JSON.parse(data);
+                                        //console.log(data);
+                }
+
+                ,
+                error: function (error) {
+                    /*$('#zero').append("Email already exists!");*/
+                    /*alert("email already exists or email not valid!");*/
+                    if (error.status == 400) {
+                        var email = $("#Email").val();
+                        var firstName = $("#FirstName").val();
+                        var lastName = $("#LastName").val();
+
+                        if (firstName == '' && lastName == '' && email == '') {
+                            const errorMessage = "All fields are required";
+                            const errorElement = document.getElementById('all');
+                            errorElement.textContent = errorMessage;
+                            setTimeout(() => {
+                                errorElement.textContent = '';
+                            }, 5000);
+
+                        }
+                        if (firstName == '' || (lastName != '' && email != '')) {
+                            const errorMessage = "Please enter the first name";
+                            const errorElement = document.getElementById('error message1');
+                            errorElement.textContent = errorMessage;
+                            setTimeout(() => {
+                                errorElement.textContent = '';
+                            }, 5000);
+                        }
+                        if (lastName == '' || (firstName != '' && email != '')) {
+                            const errorMessage = "Please enter the last name";
+                            const errorElement = document.getElementById('error message2');
+                            errorElement.textContent = errorMessage;
+                            setTimeout(() => {
+                                errorElement.textContent = '';
+                            }, 5000);
+                        }
+                        if (email == '' || (firstName != '' && lastName != '')) {
+                            const errorMessage = "Please enter email address";
+                            const errorElement = document.getElementById('error message');
+                            errorElement.textContent = errorMessage;
+                            setTimeout(() => {
+                                errorElement.textContent = '';
+                            }, 5000);
+                        }
+
+
+                    }
+                    if (error.status == 404) {
+
+                        //if (email == '') {
+                        //    var errorMsg = 'email is unfilled!';
+                        //    var errorEle = document.getElementById('error message');
+                        //    errorEle.textContent = errorMsg;
+                        //    setTimeout(() => {
+                        //        errorEle.textContent = '';
+                        //    }, 5000);
+
+                        //}
+                        //else {
+                            var errorMsg = 'The email already exists';
+                            var errorEle = document.getElementById('error message');
+                            errorEle.textContent = errorMsg;
+                            setTimeout(() => {
+                                errorEle.textContent = '';
+                            }, 5000);
+                        
+                    }
+                }
+                                            //error: function (err) {
+                                            //    console.error(err);
+                                            //}
+            })
+
+        }
+
+
+        //$(function () {
+        //    $("#new").validate({
+        //        rules: {
+        //            FirstName: {
+        //                required: true
+        //            },
+        //            LastName: {
+        //                required: true
+        //            },
+        //            favoriteMovie: {
+        //                required: true
+        //            }
+        //        },
+        //        messages: {
+        //            firstName: {
+        //                required: "First Name is a required field!!!"
+        //            },
+        //            lastName: {
+        //                required: "Last Name is a required field!!!"
+        //            },
+        //            favoriteMovie: {
+        //                required: "Favorite movie is a required field!!!"
+        //            }
+        //        }
+        //    });
+        //});
+
+
+
+    </script>
+}

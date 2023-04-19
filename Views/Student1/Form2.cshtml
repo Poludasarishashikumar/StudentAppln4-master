@@ -1,0 +1,108 @@
+﻿@model IEnumerable<StudentAppln4.Models.Student1>
+@{
+    ViewBag.Title = "Form2";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+</head>
+
+@foreach (var s in Model)
+{
+
+<body>
+    <h2>Student Details</h2>
+    <div>
+        <div>
+
+            <div>
+                <table class="table table-bordered table-striped table-responsive table-hover">
+                    <thead>
+                        <tr>
+
+                            <th>StudentId      </th>
+                            <td id="stId"></td>
+                        </tr>
+                        <tr>
+                            <th>FirstName     </th>
+                            <td id="firstname"></td>
+                        </tr>
+                        <tr>
+                            <th>LastName     </th>
+                            <td id="lastname"></td>
+                        </tr>
+                        <tr>
+                            <th>Email     </th>
+                            <td id="email"></td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <p id="kal" hidden>@s.StudentId</p>
+            <input id="kal2" type="button" hidden @*onclick='BtnClick()'*@ />
+
+        </div>
+
+
+
+
+        @*<table id="tblStudent" class="table table-bordered table-striped table-responsive table-hover">
+            <thead>
+                <tr>
+                    <th align="left" class="productth">ID</th>
+                    <th align="left" class="productth">FirstName</th>
+                    <th align="left" class="productth">LastName</th>
+                    <th align="left" class="productth">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>*@
+        <ul class="messages"></ul>
+    </div>
+    @Html.ActionLink("Back to list", "ViewDetails")
+</body>
+}
+</html>
+<script>
+    $(document).ready(function () {
+        $('#kal2').click(function BtnClick() {
+            var fi = $("#kal").html();
+
+
+            $("#tblStudent tbody tr").remove();
+
+          
+            $.ajax({
+
+                url: '/api/GetStudents/' + fi,
+                type: 'GET',
+                dataType: 'JSON',
+                data: JSON.stringify({}),
+                success: function (data) {
+                    
+                    $('#stId').append(data.studentId1);
+                    $('#firstname').append(data.firstName);
+                    $('#lastname').append(data.lastName);
+                    $('#email').append(data.email);
+                },
+                error: function (ex) {
+                    var r = jQuery.parseJSON(response.responseText);
+                    alert("Message: " + r.Message);
+                    alert("StackTrace: " + r.StackTrace);
+                    alert("ExceptionType: " + r.ExceptionType);
+                }
+            });
+            return false;
+
+        });
+        setTimeout(function () {
+            $('#kal2').trigger('click');
+        }, 10);
+    });
+</script>
+
+
+
