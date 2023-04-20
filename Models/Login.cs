@@ -19,6 +19,8 @@ namespace StudentAppln4.Models
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "Email is Required!")]
         public string Email { get; set; }
+
+        public string Token { get; set; }
         public int RecStatus { get; set; } = 1;
     }
 }

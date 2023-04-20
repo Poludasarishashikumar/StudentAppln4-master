@@ -15,6 +15,7 @@ namespace StudentAppln4.Dtos
         public string Password { get; set; }
         
         public string Email { get; set; }
-        public int RecStatus { get; set; } = 1;
+        public string Token { get; set; }
+        public int RecStatus { get; set; } = 1; 
     }
 }
